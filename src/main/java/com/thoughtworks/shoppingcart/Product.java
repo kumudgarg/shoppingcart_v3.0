@@ -4,4 +4,8 @@ public class Product {
     public Product(String apple, int i) {
 
     }
+
+    public Product() {
+
+    }
 }
