@@ -57,6 +57,27 @@ public class CartServiceTest {
         assertEquals("[{\"product\":{\"name\":\"apple\",\"price\":0.99},\"quantity\":5}]", cartService.toString());
     }
 
+    @Test
+    public void shouldReturnTotalPriceAndSalesTaxWhenMultipleProductAdded() {
+        List<CartItem> cartItems = mock(List.class);
+        CartItem cartItem1 = mock(CartItem.class);
+        CartItem cartItem2 = mock(CartItem.class);
+        Product apple = new Product("apple", 0.99);
+        Product mask = new Product("mask", 1.99);
+        cartItems.add(cartItem1);
+        cartService.addToCart(apple,2);
+        cartService.addToCart(apple,1);
+        cartItems.add(cartItem2);
+        cartService.addToCart(mask,2);
+        double salesTax = cartService.getSalesTax();
+        double total = cartService.getTotal();
+        assertEquals(0.18,salesTax, 0.01);
+        assertEquals(9.12, total, 0.01);
+        assertEquals("[{\"product\":{\"name\":\"apple\",\"price\":0.99},\"quantity\":3},{\"product\":{\"name\":\"mask\",\"price\":1.99},\"quantity\":3}]", cartService.toString());
+
+    }
+
+
 
 
 

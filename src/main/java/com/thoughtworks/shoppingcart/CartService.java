@@ -46,4 +46,7 @@ public class CartService {
     }
 
 
+    public double getSalesTax() {
+        return 0;
+    }
 }
