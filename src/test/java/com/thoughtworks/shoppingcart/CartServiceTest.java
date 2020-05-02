@@ -139,6 +139,13 @@ public class CartServiceTest {
         assertEquals("[{\"product\":{\"name\":\"apple\",\"price\":0.99,\"offer\":{\"buyQuantity\":2,\"freeQuantity\":1}},\"quantity\":10},{\"product\":{\"name\":\"mask\",\"price\":1.99},\"quantity\":3}]", cartService.toString());
     }
 
+    @Test
+    public void shouldReturnZeroCartSizeWhenAListOfProductEmpty() {
+        cartService = new CartService();
+        assertEquals(0, cartService.getTotal(), 0.0);
+    }
+
+
 
 
 
