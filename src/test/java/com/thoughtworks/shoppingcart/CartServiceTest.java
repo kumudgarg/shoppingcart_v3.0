@@ -105,7 +105,35 @@ public class CartServiceTest {
         cartItems.add(cartItem2);
         cartService.addToCart(mask,3);
         assertEquals(0.23, cartService.getSalesTax(), 0.01);
-        //assertEquals(0.0, cartService.getDiscountByCartOffer(),0.01);
+        assertEquals(4.26, cartService.getDiscount(), 0.01);
+        assertEquals(11.84, cartService.getTotal(), 0.01);
+        assertEquals("[{\"product\":{\"name\":\"apple\",\"price\":0.99,\"offer\":{\"buyQuantity\":2,\"freeQuantity\":1}},\"quantity\":10},{\"product\":{\"name\":\"mask\",\"price\":1.99},\"quantity\":3}]", cartService.toString());
+    }
+
+    @Test
+    public void shouldReturnTotalPriceToSupportCartOfferWhenMultipleProductAddedOneByOne()  {
+        cartService = new CartService(new CartOffer(10,10));
+        List<CartItem> cartItems = mock(List.class);
+        CartItem cartItem1 = mock(CartItem.class);
+        CartItem cartItem2 = mock(CartItem.class);
+        Product apple = new Product("apple", 0.99, new BuyXGetYOffer(2, 1));
+        Product mask = new Product("mask", 1.99);
+        cartItems.add(cartItem1);
+        cartService.addToCart(apple,1);
+        cartService.addToCart(apple,1);
+        cartService.addToCart(apple,1);
+        cartService.addToCart(apple,1);
+        cartService.addToCart(apple,1);
+        cartService.addToCart(apple,1);
+        cartService.addToCart(apple,1);
+        cartService.addToCart(apple,1);
+        cartService.addToCart(apple,1);
+        cartService.addToCart(apple,1);
+        cartItems.add(cartItem2);
+        cartService.addToCart(mask,1);
+        cartService.addToCart(mask,1);
+        cartService.addToCart(mask,1);
+        assertEquals(0.23, cartService.getSalesTax(), 0.01);
         assertEquals(4.26, cartService.getDiscount(), 0.01);
         assertEquals(11.84, cartService.getTotal(), 0.01);
         assertEquals("[{\"product\":{\"name\":\"apple\",\"price\":0.99,\"offer\":{\"buyQuantity\":2,\"freeQuantity\":1}},\"quantity\":10},{\"product\":{\"name\":\"mask\",\"price\":1.99},\"quantity\":3}]", cartService.toString());
