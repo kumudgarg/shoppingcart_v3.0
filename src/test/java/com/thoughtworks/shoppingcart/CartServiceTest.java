@@ -34,8 +34,8 @@ public class CartServiceTest {
         CartItem cartItem1 = mock(CartItem.class);
         CartItem cartItem2 = mock(CartItem.class);
         int quantity = 3;
-        Product apple = new Product("apple", 1);
-        Product mask = new Product("mask", 2);
+        Product apple = new Product("apple", 0.99);
+        Product mask = new Product("mask", 1.99);
         cartItems.add(cartItem1);
         cartItems.add(cartItem2);
         cartService.addToCart(apple, quantity);

@@ -5,9 +5,9 @@ import lombok.Data;
 public class Product {
     private String name;
 
-    private int price;
+    private double price;
 
-    public Product(String name, int price) {
+    public Product(String name, double price) {
         this.name = name;
         this.price = price;
     }
