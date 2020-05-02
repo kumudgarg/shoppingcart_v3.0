@@ -47,6 +47,10 @@ public class CartService {
 
 
     public double getSalesTax() {
-        return 0;
+        return  (totalPrice * 2) / 100;
+    }
+
+    public double getTotalWithSalesTax(){
+        return totalPrice += getSalesTax();
     }
 }
