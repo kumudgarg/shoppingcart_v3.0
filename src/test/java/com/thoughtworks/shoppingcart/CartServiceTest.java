@@ -45,6 +45,20 @@ public class CartServiceTest {
         verify(cartItems).add(cartItem1);
         verify(cartItems).add(cartItem2);
     }
+    @Test
+    public void shouldHaveContentAndTotalWhenAsingleProductsAddedIntoCart() {
+        List<CartItem> cartItems = mock(List.class);
+        CartItem cartItem1 = mock(CartItem.class);
+        CartItem cartItem2 = mock(CartItem.class);
+        int quantity = 3;
+        Product apple = new Product("apple", 0.99);
+        Product mask = new Product("mask", 1.99);
+        cartItems.add(cartItem1);
+        cartItems.add(cartItem2);
+        double total = cartService.getTotal();
+        assertEquals(4.95,total, 0.01);
+        assertEquals("[{\"product\":{\"name\":\"apple\",\"price\":0.99},\"quantity\":5}]", cartService.toString());
+    }
 
 
 

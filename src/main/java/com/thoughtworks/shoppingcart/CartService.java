@@ -22,4 +22,8 @@ public class CartService {
     private CartItem findCartItem(String name) {
         return cartItems.stream().filter(cartItem -> cartItem.getName() == name).findFirst().orElse(null);
     }
+
+    public double getTotal() {
+        return 0;
+    }
 }
