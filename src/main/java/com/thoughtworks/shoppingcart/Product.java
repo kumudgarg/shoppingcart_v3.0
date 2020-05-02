@@ -1,5 +1,4 @@
 package com.thoughtworks.shoppingcart;
-
 import lombok.Data;
 
 @Data
