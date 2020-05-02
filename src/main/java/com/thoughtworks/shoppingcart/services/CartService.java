@@ -1,6 +1,7 @@
-package com.thoughtworks.shoppingcart;
+package com.thoughtworks.shoppingcart.services;
 
 import com.google.gson.Gson;
+import com.thoughtworks.shoppingcart.model.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

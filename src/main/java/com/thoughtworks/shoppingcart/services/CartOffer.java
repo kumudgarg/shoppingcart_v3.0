@@ -1,4 +1,4 @@
-package com.thoughtworks.shoppingcart;
+package com.thoughtworks.shoppingcart.services;
 
 public class CartOffer {
     private double discountRate;

@@ -1,4 +1,5 @@
-package com.thoughtworks.shoppingcart;
+package com.thoughtworks.shoppingcart.model;
+import com.thoughtworks.shoppingcart.services.BuyXGetYOffer;
 import lombok.Data;
 
 @Data

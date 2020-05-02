@@ -1,4 +1,6 @@
-package com.thoughtworks.shoppingcart;
+package com.thoughtworks.shoppingcart.services;
+
+import com.thoughtworks.shoppingcart.model.Product;
 
 public class CartItem {
 

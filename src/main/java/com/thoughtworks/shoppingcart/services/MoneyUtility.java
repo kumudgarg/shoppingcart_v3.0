@@ -1,4 +1,4 @@
-package com.thoughtworks.shoppingcart;
+package com.thoughtworks.shoppingcart.services;
 
 public class MoneyUtility {
     private static final double SALES_TAX_RATE = 2.0;

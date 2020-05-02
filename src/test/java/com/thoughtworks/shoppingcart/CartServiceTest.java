@@ -1,4 +1,9 @@
 package com.thoughtworks.shoppingcart;
+import com.thoughtworks.shoppingcart.model.Product;
+import com.thoughtworks.shoppingcart.services.BuyXGetYOffer;
+import com.thoughtworks.shoppingcart.services.CartItem;
+import com.thoughtworks.shoppingcart.services.CartOffer;
+import com.thoughtworks.shoppingcart.services.CartService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
