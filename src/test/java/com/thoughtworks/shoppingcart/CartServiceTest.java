@@ -26,6 +26,21 @@ public class CartServiceTest {
         cartItems.add(cartItem);
         cartService.addToCart(apple, quantity);
         verify(cartItems).add(cartItem);
-
     }
+
+    @Test
+    public void shouldAddMultipleProductWhenARequestMakesToAddedAProductIntoCart() {
+        List<CartItem> cartItems = mock(List.class);
+        CartItem cartItem1 = mock(CartItem.class);
+        CartItem cartItem2 = mock(CartItem.class);
+        int quantity = 3;
+        Product apple = new Product("apple", 1);
+        Product mask = new Product("mask", 2);
+        cartItems.add(cartItem1);
+        cartItems.add(cartItem2);
+        cartService.addToCart(apple, quantity);
+        verify(cartItems).add(cartItem1);
+        verify(cartItems).add(cartItem2);
+    }
+
 }
