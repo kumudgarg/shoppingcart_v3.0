@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class CartServiceTest {
@@ -38,5 +39,13 @@ public class CartServiceTest {
         when(productRepository.findAll()).thenReturn(products);
         List<Product> productList = cartService.getAllProducts();
         assertEquals(products.size(), productList.size());
+    }
+
+    @Test
+    public void shouldAddASingleProductWhenARequestMakesToAddedAProductIntoCart() {
+        Product apple = new Product("apple", 1);
+        cartService.addToCart(apple, 3);
+        verify(productRepository).save(apple);
+
     }
 }

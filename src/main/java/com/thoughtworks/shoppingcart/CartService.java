@@ -14,4 +14,8 @@ public class CartService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
+
+    public void addToCart(Product apple, int i) {
+
+    }
 }
