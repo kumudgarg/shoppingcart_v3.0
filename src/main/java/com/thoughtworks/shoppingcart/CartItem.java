@@ -18,4 +18,8 @@ public class CartItem {
     public void increaseQuantity(int extraQuantity) {
         this.quantity += extraQuantity;
     }
+
+    public double getPrice() {
+        return product.getPrice() * quantity;
+    }
 }

@@ -1,4 +1,5 @@
 package com.thoughtworks.shoppingcart;
+import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,15 @@ public class CartService {
     }
 
     public double getTotal() {
-        return 0;
+        return cartItems.stream().mapToDouble(cartItem -> cartItem.getPrice()).sum();
     }
+
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(cartItems);
+    }
+
+
+
 }
