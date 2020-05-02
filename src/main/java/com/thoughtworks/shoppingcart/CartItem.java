@@ -23,5 +23,12 @@ public class CartItem {
         return product.getPrice() * quantity;
     }
 
+    public double getDiscount() {
+        double discount = 0.0;
+        if(product.getOffer() != null){
+            discount = product.getOffer().getDiscount(product, quantity);
 
+        }
+        return discount;
+    }
 }

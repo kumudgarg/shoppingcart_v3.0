@@ -2,11 +2,16 @@ package com.thoughtworks.shoppingcart;
 
 public class BuyXGetYOffer {
 
-    public BuyXGetYOffer(int i, int i1) {
+    private int buyQuantity;
+    private int freeQuantity;
 
+    public BuyXGetYOffer(int buyQuantity, int freeQuantity) {
+        this.buyQuantity = buyQuantity;
+        this.freeQuantity = freeQuantity;
     }
 
     public double getDiscount(Product product, int quantity) {
-        return 0;
+        int freeItems = (quantity / (freeQuantity + buyQuantity)) * freeQuantity;
+        return freeItems * product.getPrice();
     }
 }

@@ -46,6 +46,7 @@ public class CartService {
             CartItem newCartItem = new CartItem(product, quantity);
             cartItems.add(newCartItem);
         }
+        getTotalDiscount();
         updateActualTotalPrice();
         updateSalesTax();
         updateTotalPrice();
@@ -67,6 +68,7 @@ public class CartService {
 
 
     public double getTotalDiscount() {
-      return 0.0;
+      discount = cartItems.stream().mapToDouble(CartItem::getDiscount).sum();
+      return discount;
     }
 }
