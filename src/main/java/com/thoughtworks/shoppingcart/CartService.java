@@ -9,14 +9,20 @@ import java.util.List;
 @Service
 public class CartService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private List<CartItem> cartItems = new ArrayList<>();
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+
+    public void addToCart(Product product, int quantity) {
+        CartItem existingCartItem = findCartItem(product.getName());
+        if(existingCartItem != null)
+            existingCartItem.increaseQuantity(quantity);
+        else {
+            CartItem newCartItem = new CartItem(product, quantity);
+            cartItems.add(newCartItem);
+        }
     }
 
-    public void addToCart(Product apple, int i) {
-        productRepository.save(apple);
+    private CartItem findCartItem(String name) {
+        return cartItems.stream().filter(cartItem -> cartItem.getName() == name).findFirst().orElse(null);
     }
 }
