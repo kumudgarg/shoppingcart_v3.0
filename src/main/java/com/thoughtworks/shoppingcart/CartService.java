@@ -13,14 +13,25 @@ public class CartService {
 
     private double totalPrice;
 
+    private double salesTax;
+
 
     private CartItem findCartItem(String name) {
         return cartItems.stream().filter(cartItem -> cartItem.getName() == name).findFirst().orElse(null);
     }
 
-    private double updateTotalPrice() {
+    private double updateActualTotalPrice() {
         totalPrice = cartItems.stream().mapToDouble(cartItem -> cartItem.getPrice()).sum();
         return totalPrice;
+    }
+
+    private double updateSalesTax() {
+        salesTax = MoneyUtility.getSalesTax(totalPrice);
+        return MoneyUtility.format(salesTax);
+    }
+
+    private double updateTotalPrice() {
+        return totalPrice += salesTax;
     }
 
     public void addToCart(Product product, int quantity) {
@@ -31,12 +42,17 @@ public class CartService {
             CartItem newCartItem = new CartItem(product, quantity);
             cartItems.add(newCartItem);
         }
-
+        updateActualTotalPrice();
+        updateSalesTax();
         updateTotalPrice();
     }
 
     public double getTotal() {
         return totalPrice;
+    }
+
+    public double getSalesTax() {
+        return salesTax;
     }
 
     @Override
@@ -46,11 +62,4 @@ public class CartService {
     }
 
 
-    public double getSalesTax() {
-        return  (totalPrice * 2) / 100;
-    }
-
-    public double getTotalWithSalesTax(){
-        return totalPrice += getSalesTax();
-    }
 }

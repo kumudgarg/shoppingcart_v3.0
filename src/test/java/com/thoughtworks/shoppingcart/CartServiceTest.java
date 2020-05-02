@@ -53,7 +53,7 @@ public class CartServiceTest {
         cartItems.add(cartItem);
         cartService.addToCart(apple,5);
         double total = cartService.getTotal();
-        assertEquals(4.95,total, 0.01);
+        assertEquals(5.05,total, 0.01);
         assertEquals("[{\"product\":{\"name\":\"apple\",\"price\":0.99},\"quantity\":5}]", cartService.toString());
     }
 
@@ -70,10 +70,8 @@ public class CartServiceTest {
         cartItems.add(cartItem2);
         cartService.addToCart(mask,3);
         assertEquals(0.18,cartService.getSalesTax(), 0.01);
-        assertEquals(8.94,cartService.getTotal(), 0.01);
-        assertEquals(9.12, cartService.getTotalWithSalesTax(), 0.01);
+        assertEquals(9.12, cartService.getTotal(), 0.01);
         assertEquals("[{\"product\":{\"name\":\"apple\",\"price\":0.99},\"quantity\":3},{\"product\":{\"name\":\"mask\",\"price\":1.99},\"quantity\":3}]", cartService.toString());
-
     }
 
 
