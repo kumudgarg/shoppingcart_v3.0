@@ -37,6 +37,11 @@ public class CartService {
     }
 
 
+    private double updateDiscount() {
+        discount = cartItems.stream().mapToDouble(CartItem::getDiscount).sum();
+        return discount;
+    }
+
 
     public void addToCart(Product product, int quantity) {
         CartItem existingCartItem = findCartItem(product.getName());
@@ -46,8 +51,8 @@ public class CartService {
             CartItem newCartItem = new CartItem(product, quantity);
             cartItems.add(newCartItem);
         }
-        getTotalDiscount();
         updateActualTotalPrice();
+        updateDiscount();
         updateSalesTax();
         updateTotalPrice();
     }
@@ -60,15 +65,14 @@ public class CartService {
         return salesTax;
     }
 
+    public double getDiscount(){
+        return discount;
+    }
+
     @Override
     public String toString() {
         Gson gson = new Gson();
         return gson.toJson(cartItems);
     }
 
-
-    public double getTotalDiscount() {
-      discount = cartItems.stream().mapToDouble(CartItem::getDiscount).sum();
-      return discount;
-    }
 }
