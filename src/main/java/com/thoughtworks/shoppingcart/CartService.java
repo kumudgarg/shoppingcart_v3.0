@@ -15,6 +15,8 @@ public class CartService {
 
     private double salesTax;
 
+    private double discount;
+
 
     private CartItem findCartItem(String name) {
         return cartItems.stream().filter(cartItem -> cartItem.getName() == name).findFirst().orElse(null);
@@ -26,13 +28,15 @@ public class CartService {
     }
 
     private double updateSalesTax() {
-        salesTax = MoneyUtility.getSalesTax(totalPrice);
+        salesTax = MoneyUtility.getSalesTax(totalPrice - discount);
         return MoneyUtility.format(salesTax);
     }
 
     private double updateTotalPrice() {
-        return totalPrice += salesTax;
+        return totalPrice += salesTax - discount;
     }
+
+
 
     public void addToCart(Product product, int quantity) {
         CartItem existingCartItem = findCartItem(product.getName());
@@ -62,4 +66,7 @@ public class CartService {
     }
 
 
+    public double getTotalDiscount() {
+      return 0.0;
+    }
 }
