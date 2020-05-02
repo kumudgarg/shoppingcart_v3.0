@@ -17,6 +17,17 @@ public class CartService {
 
     private double discount;
 
+    private double grandTotal;
+
+    private CartOffer cartOffer;
+
+    public CartService(CartOffer cartOffer) {
+        this.cartOffer = cartOffer;
+    }
+
+    public CartService() {
+        this.cartOffer = null;
+    }
 
     private CartItem findCartItem(String name) {
         return cartItems.stream().filter(cartItem -> cartItem.getName() == name).findFirst().orElse(null);
@@ -28,12 +39,12 @@ public class CartService {
     }
 
     private double updateSalesTax() {
-        salesTax = MoneyUtility.getSalesTax(totalPrice - discount);
+        salesTax = MoneyUtility.getSalesTax(totalPrice - discount - getDiscountByCartOffer());
         return MoneyUtility.format(salesTax);
     }
 
     private double updateTotalPrice() {
-        return totalPrice += salesTax - discount;
+        return grandTotal = totalPrice +  salesTax - discount - getDiscountByCartOffer();
     }
 
 
@@ -58,7 +69,7 @@ public class CartService {
     }
 
     public double getTotal() {
-        return totalPrice;
+        return grandTotal;
     }
 
     public double getSalesTax() {
@@ -66,7 +77,16 @@ public class CartService {
     }
 
     public double getDiscount(){
-        return discount;
+        return discount + getDiscountByCartOffer();
+    }
+
+    public double getDiscountByCartOffer(){
+        double cartDiscount = 0;
+        if(cartOffer != null)
+            cartDiscount = cartOffer.getDiscountByCartOffer(totalPrice, discount);
+        return cartDiscount;
+
+
     }
 
     @Override
