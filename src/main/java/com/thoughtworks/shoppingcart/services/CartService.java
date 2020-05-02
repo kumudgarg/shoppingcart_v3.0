@@ -1,7 +1,9 @@
 package com.thoughtworks.shoppingcart.services;
 
 import com.google.gson.Gson;
+import com.thoughtworks.shoppingcart.Exception.NullProductTypeException;
 import com.thoughtworks.shoppingcart.model.Product;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -62,18 +64,22 @@ public class CartService {
     }
 
     public void addToCart(Product product, int quantity) {
-        CartItem existingCartItem = findCartItem(product.getName());
-        if (existingCartItem != null)
-            existingCartItem.increaseQuantity(quantity);
-        else {
-            CartItem newCartItem = new CartItem(product, quantity);
-            cartItems.add(newCartItem);
+        if(product != null) {
+            CartItem existingCartItem = findCartItem(product.getName());
+            if (existingCartItem != null)
+                existingCartItem.increaseQuantity(quantity);
+            else {
+                CartItem newCartItem = new CartItem(product, quantity);
+                cartItems.add(newCartItem);
+            }
+            updateActualTotalPrice();
+            updateDiscountByProductOffer();
+            updateDiscountByCartOffer();
+            updateSalesTax();
+            updateTotalPrice();
+            return;
         }
-        updateActualTotalPrice();
-        updateDiscountByProductOffer();
-        updateDiscountByCartOffer();
-        updateSalesTax();
-        updateTotalPrice();
+        throw new NullProductTypeException("product type is null", HttpStatus.BAD_REQUEST);
     }
 
     public double getTotal() {

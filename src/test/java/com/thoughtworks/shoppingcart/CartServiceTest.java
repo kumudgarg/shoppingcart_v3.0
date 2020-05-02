@@ -1,4 +1,5 @@
 package com.thoughtworks.shoppingcart;
+import com.thoughtworks.shoppingcart.Exception.NullProductTypeException;
 import com.thoughtworks.shoppingcart.model.Product;
 import com.thoughtworks.shoppingcart.services.BuyXGetYOffer;
 import com.thoughtworks.shoppingcart.services.CartItem;
@@ -149,6 +150,14 @@ public class CartServiceTest {
         cartService = new CartService();
         assertEquals(0, cartService.getTotal(), 0.0);
     }
+
+    @Test(expected = NullProductTypeException.class)
+    public void shouldThrowExceptionWhenANullProductNameAdded() {
+        cartService = new CartService();
+        cartService.addToCart(null, 2);
+
+    }
+
 
 
 
