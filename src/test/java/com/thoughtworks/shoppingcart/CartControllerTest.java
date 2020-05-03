@@ -69,5 +69,20 @@ public class CartControllerTest {
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+    @Test
+    public void shouldReturnTSalesTaxWhenARequestMakesForSalesTaxOfAddedProducts() throws Exception {
+        Integer quantity = 5;
+        String jsonString = "{\"name\":\"apple\",\"price\":0.99}";
+        Product apple = new Product("apple", 0.99);
+        doNothing().when(cartService).addToCart(apple, quantity);
+        when(cartService.getSalesTax()).thenReturn(0.01);
+        mvc.perform(MockMvcRequestBuilders.get("/cart/manage-products/salesTax")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+
+
 }
 
