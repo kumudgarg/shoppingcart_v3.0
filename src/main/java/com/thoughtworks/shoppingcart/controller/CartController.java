@@ -32,5 +32,11 @@ public class CartController {
         return ResponseEntity.ok(salesTax);
     }
 
+    @GetMapping("/discount")
+    public ResponseEntity<Double> getDiscount(){
+        double discount = cartService.getDiscount();
+        return ResponseEntity.ok(discount);
+    }
+
 
 }
