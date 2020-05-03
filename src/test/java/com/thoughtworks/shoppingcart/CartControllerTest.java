@@ -2,6 +2,8 @@ package com.thoughtworks.shoppingcart;
 import com.thoughtworks.shoppingcart.controller.CartController;
 import com.thoughtworks.shoppingcart.model.Product;
 import com.thoughtworks.shoppingcart.services.BuyXGetYOffer;
+import com.thoughtworks.shoppingcart.services.CartItem;
+import com.thoughtworks.shoppingcart.services.CartOffer;
 import com.thoughtworks.shoppingcart.services.CartService;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 public class CartControllerTest {
@@ -77,11 +79,26 @@ public class CartControllerTest {
         Integer quantity = 5;
         Product apple = new Product("apple", 0.99, new BuyXGetYOffer(2,1));
         doNothing().when(cartService).addToCart(apple, quantity);
-        when(cartService.getDiscount()).thenReturn(0.01);
+        when(cartService.getDiscount()).thenReturn(0.99);
         mvc.perform(MockMvcRequestBuilders.get("/cart/manage-products/discount")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+    @Test
+    public void shouldReturnTotalDiscountToHandleCartOffer() throws Exception {
+        cartService = new CartService(new CartOffer(10,1));
+        cartService = mock(CartService.class);
+        Product apple = new Product("apple", 0.99, new BuyXGetYOffer(2,1));
+        Product mask = new Product("mask", 1.99);
+        doNothing().when(cartService).addToCart(apple, 10);
+        doNothing().when(cartService).addToCart(mask, 3);
+        when(cartService.getDiscount()).thenReturn(4.26);
+        mvc.perform(MockMvcRequestBuilders.get("/cart/manage-products/discount")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
 
 
 
