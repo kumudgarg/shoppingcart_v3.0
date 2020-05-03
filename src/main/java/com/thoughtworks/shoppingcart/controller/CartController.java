@@ -14,7 +14,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @PostMapping("/Hello")
+    @PostMapping
     public ResponseEntity addToCart(@RequestParam(name = "quantity") int quantity, @Valid @RequestBody Product product){
         cartService.addToCart(product, quantity);
         return ResponseEntity.ok(null);

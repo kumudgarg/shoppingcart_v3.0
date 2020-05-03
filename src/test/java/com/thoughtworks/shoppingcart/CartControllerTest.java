@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 public class CartControllerTest {
 
@@ -44,7 +45,7 @@ public class CartControllerTest {
         String jsonString = "{\"name\":\"apple\",\"price\":0.99}";
         Product apple = new Product("apple", 0.99);
         doNothing().when(cartService).addToCart(apple, quantity);
-        mvc.perform(MockMvcRequestBuilders.post("/cart/manage-products/Hello")
+        mvc.perform(MockMvcRequestBuilders.post("/cart/manage-products")
                 .param("quantity", quantity.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonString)
@@ -52,5 +53,18 @@ public class CartControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+
+    @Test
+    public void shouldReturnTotalPriceWhenARequestMakesForGetTotalPriceOfAddedProducts() throws Exception {
+        Integer quantity = 5;
+        String jsonString = "{\"name\":\"apple\",\"price\":0.99}";
+        Product apple = new Product("apple", 0.99);
+        doNothing().when(cartService).addToCart(apple, quantity);
+        when(cartService.getTotal()).thenReturn(5.05);
+        mvc.perform(MockMvcRequestBuilders.get("/cart/manage-products")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isOk());
+
+    }
 }
 
