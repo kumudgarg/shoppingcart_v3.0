@@ -1,32 +1,23 @@
 package com.thoughtworks.shoppingcart;
-
 import com.thoughtworks.shoppingcart.controller.CartController;
 import com.thoughtworks.shoppingcart.model.Product;
-import com.thoughtworks.shoppingcart.services.CartItem;
 import com.thoughtworks.shoppingcart.services.CartService;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import static net.bytebuddy.matcher.ElementMatchers.is;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+@RunWith(SpringRunner.class)
 public class CartControllerTest {
 
     private MockMvc mvc;
