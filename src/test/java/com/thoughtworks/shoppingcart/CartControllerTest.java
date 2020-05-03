@@ -53,7 +53,6 @@ public class CartControllerTest {
     @Test
     public void shouldReturnTotalPriceWhenARequestMakesForGetTotalPriceOfAddedProducts() throws Exception {
         Integer quantity = 5;
-        String jsonString = "{\"name\":\"apple\",\"price\":0.99}";
         Product apple = new Product("apple", 0.99);
         doNothing().when(cartService).addToCart(apple, quantity);
         when(cartService.getTotal()).thenReturn(5.05);
@@ -65,7 +64,6 @@ public class CartControllerTest {
     @Test
     public void shouldReturnSalesTaxWhenARequestMakesForSalesTaxOfAddedProducts() throws Exception {
         Integer quantity = 5;
-        String jsonString = "{\"name\":\"apple\",\"price\":0.99}";
         Product apple = new Product("apple", 0.99);
         doNothing().when(cartService).addToCart(apple, quantity);
         when(cartService.getSalesTax()).thenReturn(0.01);
@@ -77,7 +75,6 @@ public class CartControllerTest {
     @Test
     public void shouldReturnTotalDiscountWhenARequestMakesForDiscountOfAddedProducts() throws Exception {
         Integer quantity = 5;
-        String jsonString = "{\"name\":\"apple\",\"price\":0.99}";
         Product apple = new Product("apple", 0.99, new BuyXGetYOffer(2,1));
         doNothing().when(cartService).addToCart(apple, quantity);
         when(cartService.getDiscount()).thenReturn(0.01);
