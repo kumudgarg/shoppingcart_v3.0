@@ -20,7 +20,7 @@ public class CartController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping
+    @GetMapping("/total")
     public ResponseEntity<Double> getTotal(){
         double total = cartService.getTotal();
         return ResponseEntity.ok(total);

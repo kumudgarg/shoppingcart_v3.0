@@ -65,7 +65,7 @@ public class CartControllerTest {
         Product apple = new Product("apple", 0.99);
         doNothing().when(cartService).addToCart(apple, quantity);
         when(cartService.getTotal()).thenReturn(5.05);
-        mvc.perform(MockMvcRequestBuilders.get("/cart/manage-products")
+        mvc.perform(MockMvcRequestBuilders.get("/cart/manage-products/total")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }
