@@ -1,5 +1,8 @@
 package com.thoughtworks.shoppingcart.services;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class MoneyUtility {
     private static final double SALES_TAX_RATE = 2.0;
 

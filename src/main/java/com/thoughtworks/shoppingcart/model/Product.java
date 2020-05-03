@@ -10,8 +10,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class Product {
 
-    @NotNull(message = "name should not be null")
-    @NotBlank(message = "name should not be blank")
+    @NotNull
     private String name;
 
     private double price;
