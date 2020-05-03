@@ -22,29 +22,30 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.doNothing;
 
-@RunWith(SpringRunner.class)
 public class CartControllerTest {
 
     private MockMvc mvc;
 
-    @InjectMocks
-    CartController cartController;
-
     @Mock
     CartService cartService;
 
+    @InjectMocks
+    CartController cartController;
+
     @Before
     public void setUp() throws Exception {
-        mvc = MockMvcBuilders.standaloneSetup(cartController).build();
         MockitoAnnotations.initMocks(this);
+        mvc = MockMvcBuilders.standaloneSetup(cartController).build();
     }
 
     @Test
     public void shouldAddedASingleProductIntoCartWhenARequestMakesToAddProduct() throws Exception {
-        String jsonString = "[{\"product\":{\"name\":\"apple\",\"price\":0.99},\"quantity\":5}]";
+        Integer quantity = 5;
+        String jsonString = "{\"name\":\"apple\",\"price\":0.99}";
         Product apple = new Product("apple", 0.99);
-        doNothing().when(cartService).addToCart(apple, 5);
+        doNothing().when(cartService).addToCart(apple, quantity);
         mvc.perform(MockMvcRequestBuilders.post("/cart/manage-products/Hello")
+                .param("quantity", quantity.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonString)
                 .accept(MediaType.APPLICATION_JSON))

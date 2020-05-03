@@ -151,7 +151,7 @@ public class CartServiceTest {
         assertEquals(0, cartService.getTotal(), 0.0);
     }
 
-    @Test(expected = NullProductTypeException.class)
+    @Test(expected = NullProductTypeException .class)
     public void shouldThrowExceptionWhenANullProductNameAdded() {
         cartService = new CartService();
         cartService.addToCart(null, 2);
