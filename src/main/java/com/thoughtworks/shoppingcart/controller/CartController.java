@@ -1,10 +1,13 @@
 package com.thoughtworks.shoppingcart.controller;
+import com.thoughtworks.shoppingcart.model.CartContext;
 import com.thoughtworks.shoppingcart.model.Product;
+import com.thoughtworks.shoppingcart.services.CartOffer;
 import com.thoughtworks.shoppingcart.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.validation.Valid;
 
 @RestController
@@ -15,8 +18,9 @@ public class CartController {
     private CartService cartService;
 
     @PostMapping
-    public ResponseEntity addToCart(@RequestParam(name = "quantity") int quantity, @Valid @RequestBody Product product){
-        cartService.addToCart(product, quantity);
+    public ResponseEntity addToCart(@RequestParam(name = "quantity") int quantity, @Valid @RequestBody CartContext cartContext){
+        cartService.setCartOffer(cartContext.getCartOffer());
+        cartService.addToCart(cartContext.getProduct(), quantity);
         return ResponseEntity.ok(null);
     }
 

@@ -1,4 +1,5 @@
 package com.thoughtworks.shoppingcart.model;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.thoughtworks.shoppingcart.services.BuyXGetYOffer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,9 +11,10 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class Product {
 
-    @NotNull
+    @NotNull @NotBlank
     private String name;
 
+    @NotNull @NotBlank
     private double price;
 
     private BuyXGetYOffer offer;

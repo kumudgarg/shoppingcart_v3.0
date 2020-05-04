@@ -1,8 +1,10 @@
 package com.thoughtworks.shoppingcart.services;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.google.gson.Gson;
 import com.thoughtworks.shoppingcart.Exception.NullProductTypeException;
 import com.thoughtworks.shoppingcart.model.Product;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Data
 public class CartService {
 
     private List<CartItem> cartItems = new ArrayList<>();
@@ -22,6 +25,7 @@ public class CartService {
 
     private double grandTotal;
 
+    @JsonView
     private CartOffer cartOffer;
 
     public CartService(CartOffer cartOffer) {

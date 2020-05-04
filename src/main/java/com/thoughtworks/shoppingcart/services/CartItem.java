@@ -3,7 +3,6 @@ package com.thoughtworks.shoppingcart.services;
 import com.thoughtworks.shoppingcart.model.Product;
 import org.springframework.stereotype.Service;
 
-@Service
 public class CartItem {
 
     private Product product;
