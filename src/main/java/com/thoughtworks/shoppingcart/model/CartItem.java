@@ -4,9 +4,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.thoughtworks.shoppingcart.model.Product;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.util.UUID;
+
+@Data
+@NoArgsConstructor
 
 public class CartItem {
+
+
 
     @JsonView
     private Product product;
@@ -37,10 +47,14 @@ public class CartItem {
     @JsonIgnore
     public double getDiscount() {
         double discount = 0.0;
-        if (product.getOffer() != null) {
-            discount = product.getOffer().getDiscount(product, quantity);
-
+        for (BuyXGetYOffer buyXGetYOffer: product.getOffer()) {
+            if (buyXGetYOffer != null) {
+                discount = buyXGetYOffer.getDiscount(product, quantity);
+                return discount;
+            }
         }
         return discount;
+
     }
+
 }

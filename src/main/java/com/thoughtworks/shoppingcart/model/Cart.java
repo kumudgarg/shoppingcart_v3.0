@@ -1,30 +1,49 @@
 package com.thoughtworks.shoppingcart.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thoughtworks.shoppingcart.dto.ProductDTO;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
 @Data
+@Entity
+@Table(name = "cart")
 public class Cart {
 
-    private UUID id;
 
-    private List<CartItem> cartItem;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+
 
     @JsonIgnore
-    private CartOffer cartOffer;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<CartOffer> cartOffer;
+
+
 
     private double salesTax;
 
+
     private double discount;
+
 
     private double grandTotal;
 
-    public UUID getId() {
-        id = UUID.randomUUID();
-        return id;
+    public Cart() {
     }
 
+    public Cart(Long id, double salesTax, double discount, double grandTotal) {
+        this.id = id;
+        this.salesTax = salesTax;
+        this.discount = discount;
+        this.grandTotal = grandTotal;
+    }
 }

@@ -7,7 +7,12 @@ import java.util.UUID;
 @Data
 public class ProductDTO {
 
-    private UUID id;
+    private Long id;
 
-    private int qunatity;
+    private int quantity;
+
+    public ProductDTO(Long productId, int quanity) {
+        this.id = productId;
+        this.quantity = quanity;
+    }
 }
